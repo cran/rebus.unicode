@@ -1564,7 +1564,8 @@ into a character class?}
 A character vector representing part or all of a regular expression.
 }
 \description{
-Match ranges of unicode characters.
+Match ranges of unicode characters. In particular, you can match characters
+from a particular language.
 }
 \note{
 Windows currently doesn't handle Unicode points with more than four
@@ -1591,6 +1592,21 @@ ARMENIAN
 LINEAR_B_IDEOGRAMS
 DUPLOYAN
 OSMANYA
+
+\dontrun{
+# All the Unicode characer classes
+# Not run, since it generates lots of output
+setdiff(
+  ls("package:rebus.unicode", pattern = lower()), 
+  ls(
+    "package:rebus.unicode", 
+    pattern = START \%R\% case_insensitive(or("up", "ugc", "unicode")))
+)
+}
+
+# Usage
+pythag <- "\\u03b1^2 + \\u03b2^2 = \\u03b3^2"
+stringi::stri_extract_all_regex(pythag, greek_and_coptic())
 }
 \references{
 \url{http://www.unicode.org/charts}
